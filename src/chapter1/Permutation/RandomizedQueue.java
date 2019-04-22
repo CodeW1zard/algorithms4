@@ -1,3 +1,5 @@
+package chapter1.Permutation;
+
 import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.Iterator;

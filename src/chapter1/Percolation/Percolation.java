@@ -1,3 +1,5 @@
+package chapter1.Percolation;
+
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
@@ -80,7 +82,7 @@ public class Percolation {
     }
 
     public static void main(String[] args) {
-        StdOut.println("main function in Percolation.java");
+        StdOut.println("main function in chapter1.Percolation.Percolation.java");
         int n = StdIn.readInt();
         Percolation model = new Percolation(n);
         int count = 0;

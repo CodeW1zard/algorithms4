@@ -19,10 +19,4 @@ public class TreeNode<Key extends Comparable, Value> {
         this.height = height;
     }
 
-    public TreeNode(Key key, Value value, int height, int count) {
-        this.key = key;
-        this.value = value;
-        this.height = height;
-        this.count = count;
-    }
 }

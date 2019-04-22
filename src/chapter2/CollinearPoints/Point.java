@@ -1,6 +1,7 @@
+package chapter2.CollinearPoints;
 /******************************************************************************
- *  Compilation:  javac Point.java
- *  Execution:    java Point
+ *  Compilation:  javac chapter2.CollinearPoints.Point.java
+ *  Execution:    java chapter2.CollinearPoints.Point
  *  Dependencies: none
  *
  *  An immutable data type for points in the plane.
@@ -124,7 +125,7 @@ public class Point implements Comparable<Point> {
     }
 
     /**
-     * Unit tests the Point data type.
+     * Unit tests the chapter2.CollinearPoints.Point data type.
      */
     public static void main(String[] args) {
         /* YOUR CODE HERE */

@@ -1,3 +1,5 @@
+package chapter1;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -124,7 +126,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public static void main(String[] args) {
-//        Deque<Integer> deque = new Deque<>();
+//        chapter1.Deque<Integer> deque = new chapter1.Deque<>();
 //        deque.addLast(1);
 //        deque.addLast(2);
 //        System.out.println(deque.removeLast());

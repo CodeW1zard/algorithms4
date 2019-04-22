@@ -1,3 +1,5 @@
+package chapter2.CollinearPoints;
+
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
@@ -9,6 +11,7 @@ import java.util.List;
 public class BruteCollinearPoints {
     private List<LineSegment> segs = new ArrayList<>();
     private Point[] points;
+
     public BruteCollinearPoints(Point[] pointsIn) {
         // check null input
         if (pointsIn == null) throw new IllegalArgumentException();
@@ -16,7 +19,7 @@ public class BruteCollinearPoints {
         // copy to points
         int N = pointsIn.length;
         points = new Point[N];
-        for(int i=0;i<N;i++) points[i] = pointsIn[i];
+        for(int i=0; i<N; i++) points[i] = pointsIn[i];
         // check duplicates
         Arrays.sort(points);
         for (int i = 0; i < N-1; i++) {

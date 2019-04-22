@@ -1,7 +1,9 @@
+package chapter2.CollinearPoints;
+
 /*************************************************************************
- *  Compilation:  javac LineSegment.java
+ *  Compilation:  javac chapter2.CollinearPoints.LineSegment.java
  *  Execution:    none
- *  Dependencies: Point.java
+ *  Dependencies: chapter2.CollinearPoints.Point.java
  *
  *  An immutable data type for Line segments in the plane.
  *  For use on Coursera, Algorithms Part I programming assignment.
