@@ -121,6 +121,7 @@ public class Board {
     public String toString() {
         StringBuffer board = new StringBuffer();
         String separator = " ";
+        board.append(n + "\n");
         for (int i = 0; i < this.n; ++i) {
             for (int j = 0; j < this.n; ++j)
                 if (j > 0)
