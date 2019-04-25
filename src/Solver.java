@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.MinPQ;
+import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdOut;
 
 import java.util.ArrayList;
@@ -8,65 +9,78 @@ import java.util.List;
 public class Solver {
 
     private boolean isSolvable;
-    private List<Board> solution;
-    private int moves;
-    public Solver(Board initial) {
-        MinPQ<Board> pq = new MinPQ<>();
-        solution = new ArrayList<>();
-        solution.add(initial);
-        pq.insert(initial);
-        Board prevBoard = initial;
+    private SearchNode endNode;
 
-        Board twinInitial = initial.twin();
-        MinPQ<Board> twinPq = new MinPQ<>();
-        List<Board> twinSolution = new ArrayList<>();
-        solution.add(twinInitial);
-        pq.insert(twinInitial);
-        Board twinPrevBoard = twinInitial;
+    private class SearchNode implements Comparable<SearchNode> {
+        private Board board;
+        private SearchNode prevNode;
+        private int priority;
+        private int moves;
 
-        while (!initial.isGoal() && !twinInitial.isGoal()) {
-
-            Board board = pq.delMin();
-            solution.add(board);
-
-            for (Board adj : board.neighbors()) {
-
-                pq.insert(adj);
-            }
-            initial = board;
-
-            Board twinBoard = twinPq.delMin();
-            twinSolution.add(twinBoard);
-
-            for (Board adj : twinBoard.neighbors()) {
-
-                twinPq.insert(adj);
-            }
-            twinInitial = twinBoard;
+        SearchNode(Board currBoard, SearchNode prevNode, int moves) {
+            this.board = currBoard;
+            this.moves = moves;
+            this.priority = currBoard.manhattan() + moves;
+            this.prevNode = prevNode;
         }
 
-        isSolvable = initial.isGoal();
-        if(!isSolvable){
-            solution = null;
-        }else{
-            moves = solution.size();
-        }
 
+        public int compareTo(SearchNode that) {
+            return Integer.compare(this.priority, that.priority);
+        }
     }
 
-    public boolean isSolvable(){
+    public Solver(Board initial) {
+
+        if (initial == null) throw new IllegalArgumentException();
+        MinPQ<SearchNode> pq = new MinPQ<>();
+        SearchNode initialNode = new SearchNode(initial, null, 0);
+        pq.insert(initialNode);
+
+        Board twinInitial = initial.twin();
+        MinPQ<SearchNode> twinPq = new MinPQ<>();
+        SearchNode twinInitialNode = new SearchNode(twinInitial, null, 0);
+        twinPq.insert(twinInitialNode);
+
+        while (!pq.min().board.isGoal() && !twinPq.min().board.isGoal()) {
+            SearchNode node = pq.delMin();
+            for (Board adj : node.board.neighbors()) {
+                if (adj.equals(node.prevNode.board)) continue;
+                SearchNode tmp = new SearchNode(adj, node, node.moves + 1);
+                pq.insert(tmp);
+            }
+
+
+            SearchNode twinNode = twinPq.delMin();
+            for (Board adj : twinNode.board.neighbors()) {
+                if (adj.equals(node.prevNode.board)) continue;
+                SearchNode tmp = new SearchNode(adj, twinNode, twinNode.moves + 1);
+                twinPq.insert(tmp);
+            }
+        }
+
+        this.endNode = pq.min();
+        this.isSolvable = this.endNode.board.isGoal();
+    }
+
+    public boolean isSolvable() {
         return this.isSolvable;
     }
 
-    public int moves(){
-        return moves;
+    public int moves() {
+        return endNode.moves;
     }
 
-    public Iterable<Board> solution(){
+    public Iterable<Board> solution() {
+        Stack<Board> solution = new Stack<>();
+        while (endNode != null) {
+            solution.push(endNode.board);
+            endNode = endNode.prevNode;
+        }
         return solution;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // create initial board from file
         In in = new In(args[0]);
         int n = in.readInt();
